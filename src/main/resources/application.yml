@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: multiple-source
+
+  datasource:
+    primary:
+      jdbc-url: jdbc:mysql://localhost:3301/db_primary
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+        maximum-pool-size: 10
+        minimum-idle: 2
+
+    secondary:
+      jdbc-url: jdbc:mysql://localhost:3302/db_secondary
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+        maximum-pool-size: 10
+        minimum-idle: 2
+
+    target:
+      jdbc-url: jdbc:mysql://localhost:3303/db_target
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+        maximum-pool-size: 10
+        minimum-idle: 2
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update  # Can be "none", "validate", "update", "create", "create-drop"
+
+logging:
+  level:
+    root: INFO
+    org.springframework.jdbc: DEBUG
+    org.springframework.transaction: TRACE
+    com.zaxxer.hikari: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+    operations-sorter: method
